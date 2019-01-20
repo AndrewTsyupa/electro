@@ -32,10 +32,7 @@ class TovarController extends Controller
         $values = Values::where('tovari_id', $id)->get();
 
 
-
-
         return view('catalog', ['tovar' => $tovar, 'values' => $values]);
-
     }
 
     public function order_add(Request $request)
@@ -110,11 +107,11 @@ class TovarController extends Controller
     {
 
         $orders_data = DB::table('order_data')
-        ->join('tovari', 'order_data.tovari_id', '=', 'tovari.id')
-        ->select('order_data.*', 'tovari.tovar_name', 'tovari.opis', 'tovari.price')
-        ->orderBy('order_data.tovari_id', 'desc')
-        ->where('order_id', $id)
-        ->get();
+            ->join('tovari', 'order_data.tovari_id', '=', 'tovari.id')
+            ->select('order_data.*', 'tovari.tovar_name', 'tovari.opis', 'tovari.price')
+            ->orderBy('order_data.tovari_id', 'desc')
+            ->where('order_id', $id)
+            ->get();
 
         $summ = 0;
 
@@ -138,22 +135,38 @@ class TovarController extends Controller
         $korzina[$product_id] = $total;
 
         $request->session()->put('корзина', $korzina);
+
+        return view('layouts._korzina_dropdown');
+    }
+
+    public function addForOrder(Request $request)
+    {
+
+        $total = $request->get('total');
+        $product_id = $request->get('product_id');
+
+        $korzina = $request->session()->get('корзина');
+
+        $korzina[$product_id] = $total;
+
+        $request->session()->put('корзина', $korzina);
         $summ = 0;
         $totals = 0;
 
-
+        $total_one = $total;
         foreach ($korzina as $product_id => $total) {
 
             $pr = DB::table('tovari')->where('id', $product_id)->first();
             if ($pr) {
                 $price = $pr->price;
                 $summ += $total * $price;
+                $summ_one = $total * $price;
                 $totals += $total;
+
             }
         }
 
-        return json_encode(['total' => $summ, 'items' => $totals]);
-
+        return json_encode(['total' => $summ, 'items' => $totals, 'total_one' => $total_one, 'summ_one' => $summ_one]);
     }
 
     public function delete(Request $request)
@@ -219,13 +232,8 @@ class TovarController extends Controller
                     'price' => $price,
                     'sum' => $sum
                 ];
-
-
             }
-
         }
-
-
         return view('/shoping', ['korsina_all' => $korsina_all, 'summ' => $summ]);
 
     }

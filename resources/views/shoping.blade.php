@@ -42,9 +42,7 @@
 
                 <tbody>
 
-
                 @foreach ($korsina_all as $row )
-                    {{--<form id="form-delete" action="delete" method="post">--}}
                     <tr class="product-row">
                         <td class="text-center">
                             <a href="product.html">

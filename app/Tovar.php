@@ -44,6 +44,11 @@ class Tovar extends Model
         }
     }
 
+    public function getImage()
+    {
+        return $this->image[0];
+    }
+
     public function values()
     {
         return $this->hasMany('App\Values', 'tovari_id')->orderBy('id', 'asc');

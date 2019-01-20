@@ -51,6 +51,17 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label for="inputPhone" class="col-sm-3 control-label">Категорія :</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="category" name="category" type="text" >
+                        @foreach($category as $categor)
+                            <option value="{{$categor->id}}">{{$categor->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
             @foreach($tovar->values as $val)
                 <div class="form-group edit-block">
                     <label for="inputEmail" class="col-sm-3 control-label labels" id="labels">Властивість:{{$val->id}} </label>

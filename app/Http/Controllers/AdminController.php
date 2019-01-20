@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Tovar;
 use App\Values;
 use Faker\Provider\File;
@@ -24,14 +25,30 @@ class AdminController extends Controller
     {
         $products = Tovar::all()->sortBy('id');
 
-            return view('/admin/list', ['products' => $products]);
-        }
+        return view('/admin/list', ['products' => $products]);
+    }
 
 
     public function newProduct()
     {
-        return view('/admin/add_product');
+        $categorys = Category::all();
+        return view('/admin/add_product', ['categorys' => $categorys]);
     }
+
+    public function newCategory()
+    {
+
+        return view('/admin/add_category');
+    }
+
+    public function categoryView(Request $request, $id)
+    {
+        $category = Category::findOrFail($id);
+        $products = Tovar::where('category_id', $id)->get();
+
+        return view('/admin/list_category', ['products' => $products, 'category' => $category]);
+    }
+
 
     public function addProduct(Request $request)
     {
@@ -39,6 +56,7 @@ class AdminController extends Controller
         $tovar->tovar_name = Input::get('tovar_name');
         $tovar->opis = Input::get('opis');
         $tovar->price = Input::get('price');
+        $tovar->category_id = $request->get('category');
         $tovar->image = [];
         $tovar->save();
 
@@ -72,11 +90,23 @@ class AdminController extends Controller
 
     }
 
+    public function addCategoryProduct(Request $request)
+    {
+        $category = new Category();
+        $category->name = Input::get('name');
+        $category->save();
+
+        return redirect('/');
+    }
+
     public function editProduct(Request $request, $id)
     {
 
 
         $tovar = Tovar::findOrFail($id);
+        $category = Category::all();
+
+
 
         if ($request->isMethod('post')) {
 
@@ -84,6 +114,8 @@ class AdminController extends Controller
             $tovar->tovar_name = Input::get('tovar_name');
             $tovar->opis = Input::get('opis');
             $tovar->price = Input::get('price');
+            $tovar->category_id = $request->get('category');
+
 
 
             $data = [];
@@ -127,16 +159,13 @@ class AdminController extends Controller
                 }
 
 
-
                 return redirect('/admin/view');
             }
 
         }
 
 
-
-
-        return view('/admin/edit_product', ['tovar' => $tovar,]);
+        return view('/admin/edit_product', ['tovar' => $tovar, 'category' => $category]);
     }
 
 

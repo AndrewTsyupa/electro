@@ -19,6 +19,7 @@ class CreateTovariTable extends Migration
             $table->string('opis');
             $table->string('price');
             $table->text('image');
+            $table->string('category_id');
             $table->timestamps();
         });
     }

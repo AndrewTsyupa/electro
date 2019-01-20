@@ -26,7 +26,7 @@
                     <!-- Left Starts -->
                     <div class="col-sm-4 images-block">
                         <p>
-                            <img src="/images/tovar/{{$tovar->id}}/{{$tovar->getMainImage() }}" alt="Image"
+                            <img src="{{$tovar->getMainImage() }}" alt="Image"
                                  class="img-responsive thumbnail">
                         </p>
 
@@ -50,16 +50,6 @@
                                 @endforeach
                                 <li>
                                     <span>Availability:</span> <strong class="label label-success">Out Of Stock</strong>
-                                </li>
-                            </ul>
-                            <ul class="list-unstyled manufacturer">
-                                <li>
-                                    <span>Brand:</span> Indian spices
-                                </li>
-                                <li><span class="w250">Model:</span> SKU012452</li>
-                                <li><span>Reward Poin tsdvsvdsvsdvvdsvsd:</span> 300</li>
-                                <li>
-                                    <span>Availability:</span> <strong class="label label-danger">Out Of Stock</strong>
                                 </li>
                             </ul>
                             <!-- Manufacturer Ends -->

@@ -17,13 +17,16 @@
                 </div>
             </div>
             <div class="form-group">
+
                 <label for="inputLname" class="col-sm-3 control-label">Опис :</label>
                 <div class="col-sm-6">
                     <input id="opis" name="opis" type="text" class="form-control"
                            placeholder="Опис">
                 </div>
+
             </div>
             <div class="form-group">
+
                 <label for="inputEmail" class="col-sm-3 control-label">Ціна :</label>
                 <div class="col-sm-6">
                     <input id="price" name="price" type="text" class="form-control"
@@ -35,6 +38,17 @@
                 <label for="inputPhone" class="col-sm-3 control-label">Фото :</label>
                 <div class="col-sm-6">
                     <input type="file" name="file[]" id="file" multiple class="btn btn-black">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPhone" class="col-sm-3 control-label">Категорія :</label>
+                <div class="col-sm-6">
+                    <select class="form-control" id="category" name="category" type="text" >
+                        @foreach($categorys as $category)
+                            <option  value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 

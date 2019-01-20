@@ -1,6 +1,6 @@
-@inject('korzina', 'App\Providers\Korzina')
+@inject('categoryProvider', 'App\Providers\CategoryProvider')
 
-        <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 
@@ -94,6 +94,14 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="/admin/new-category">
+                                    <i class="fa fa-shopping-cart hidden-lg hidden-md" title="Admin Data"></i>
+                                    <span class="hidden-sm hidden-xs">
+											 Add Category
+										</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="/admin/view">
                                     <i class="fa fa-shopping-cart hidden-lg hidden-md" title="Admin Data"></i>
                                     <span class="hidden-sm hidden-xs">
@@ -172,91 +180,8 @@
                 </div>
                 <!-- Logo Starts -->
                 <!-- Shopping Cart Starts -->
-                <div class="col-md-3">
-                    <div id="cart" class="btn-group btn-block">
-                        <a href="" data-toggle="dropdown" class="btn btn-block btn-lg dropdown-toggle">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span class="hidden-md">Cart:</span>
-                            <span id="cart-total">{{$korzina->korsina()}}</span>
-                            <i class="fa fa-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu pull-right">
-                            <li>
-                                <table class="table hcart">
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="product.html">
-                                                <img src="images/product-images/hcart-thumb1.jpg" alt="image"
-                                                     title="image" class="img-thumbnail img-responsive"/>
-                                            </a>
-                                        </td>
-                                        <td class="text-left">
-                                            <a href="product-full.html">
-                                                Seeds
-                                            </a>
-                                        </td>
-                                        <td class="text-right">x 1</td>
-                                        <td class="text-right">$120.68</td>
-                                        <td class="text-center">
-                                            <a href="#">
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            <a href="product.html">
-                                                <img src="images/product-images/hcart-thumb2.jpg" alt="image"
-                                                     title="image" class="img-thumbnail img-responsive"/>
-                                            </a>
-                                        </td>
-                                        <td class="text-left">
-                                            <a href="product-full.html">
-                                                Organic
-                                            </a>
-                                        </td>
-                                        <td class="text-right">x 2</td>
-                                        <td class="text-right">$240.00</td>
-                                        <td class="text-center">
-                                            <a href="#">
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li>
-                            <li>
-                                <table class="table table-bordered total">
-                                    <tbody>
-                                    <tr>
-                                        <td class="text-right"><strong>Sub-Total</strong></td>
-                                        <td class="text-left">$1,101.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-right"><strong>Eco Tax (-2.00)</strong></td>
-                                        <td class="text-left">$4.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-right"><strong>VAT (17.5%)</strong></td>
-                                        <td class="text-left">$192.68</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-right"><strong>Total</strong></td>
-                                        <td class="text-left">$1,297.68</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <p class="text-right btn-block1">
-                                    <a href="cart.html">
-                                        View Cart
-                                    </a>
-                                    <a href="#">
-                                        Checkout
-                                    </a>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="col-md-3" id="korzina-dropdown">
+                    @include('layouts._korzina_dropdown')
                 </div>
                 <!-- Shopping Cart Ends -->
             </div>
@@ -278,48 +203,11 @@
             <!-- Navbar Cat collapse Starts -->
             <div class="collapse navbar-collapse navbar-cat-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="category-list.html">Digital Cameras</a></li>
-                    <li class="dropdown">
-                        <a href="category-list.html" class="dropdown-toggle" data-toggle="dropdown"
-                           data-hover="dropdown" data-delay="10">
-                            Sound Devices
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a tabindex="-1" href="#">Music System</a></li>
-                            <li><a tabindex="-1" href="#">DTS</a></li>
-                            <li><a tabindex="-1" href="#">Home Theater</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="category-list.html" class="dropdown-toggle" data-toggle="dropdown"
-                           data-hover="dropdown" data-delay="10">Televisions </a>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-inner">
-                                <ul class="list-unstyled">
-                                    <li class="dropdown-header">Sub Category</li>
-                                    <li><a tabindex="-1" href="#">item 1</a></li>
-                                    <li><a tabindex="-1" href="#">item 2</a></li>
-                                    <li><a tabindex="-1" href="#">item 3</a></li>
-                                </ul>
-                                <ul class="list-unstyled">
-                                    <li class="dropdown-header">Sub Category</li>
-                                    <li><a tabindex="-1" href="#">item 1</a></li>
-                                    <li><a tabindex="-1" href="#">item 2</a></li>
-                                    <li><a tabindex="-1" href="#">item 3</a></li>
-                                </ul>
-                                <ul class="list-unstyled">
-                                    <li class="dropdown-header">Sub Category</li>
-                                    <li><a tabindex="-1" href="#">item 1</a></li>
-                                    <li><a tabindex="-1" href="#">item 2</a></li>
-                                    <li><a tabindex="-1" href="#">item 3</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li><a href="category-list.html">Computers </a></li>
-                    <li><a href="category-list.html">Washing Machines</a></li>
-                    <li><a href="category-list.html">Accessories </a></li>
-                    <li><a href="category-list.html">Mobile Phones </a></li>
+
+                        @foreach($categoryProvider->category() as $category )
+                            <li><a href="{{ url('/category/'.$category->id)}}">{{$category->name}}</a></li>
+                        @endforeach
+
                     <li class="dropdown">
                         <a href="category-list.html" class="dropdown-toggle" data-toggle="dropdown"
                            data-hover="dropdown" data-delay="10">
@@ -349,9 +237,7 @@
     </nav>
     <!-- Main Menu Ends -->
 </header>
-
 @yield('content')
-
 <footer id="footer-area">
     <!-- Footer Links Starts -->
     <div class="footer-links">
