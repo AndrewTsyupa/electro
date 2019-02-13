@@ -54,33 +54,38 @@ class Korzina extends ServiceProvider
         $korzina = $this->request->session()->get('корзина', []);
         $summ = 0;
         $totals = 0;
+        foreach ($korzina as $key => $value) {
+            if ($key) {
+                foreach ($korzina as $product_id => $total) {
 
-        if ($korzina) {
-            foreach ($korzina as $product_id => $total) {
+                    $pr = DB::table('tovari')->where('id', $product_id)->first();
+                    if ($pr) {
 
-                $pr = DB::table('tovari')->where('id', $product_id)->first();
-                if ($pr) {
-
-                    $image_data = json_decode($pr->image);
-                    $global[$product_id] =
-                        [
-                            'id' => $pr->id,
-                            'tovar_name' => $pr->tovar_name,
-                            'opis' => $pr->opis,
-                            'image' => $image_data[0],
-                            'price' => $pr->price,
-                            'summ' => $summ += $total * $pr->price,
-                            'total' => $totals += $total,
-                            'zagal' => $total
-                        ];
+                        $image_data = json_decode($pr->image);
+                        $global[$product_id] =
+                            [
+                                'id' => $pr->id,
+                                'tovar_name' => $pr->tovar_name,
+                                'opis' => $pr->opis,
+                                'image' => $image_data[0],
+                                'price' => $pr->price,
+                                'summ' => $summ += $total * $pr->price,
+                                'total' => $totals += $total,
+                                'zagal' => $total
+                            ];
+                    }
                 }
+                return $global;
             }
-            return $global ;
-        } else {
-            $global[] = 0;
-            return $global;
+
+
+
+
         }
+        $global[] = 0;
+        return $global;
     }
+
 
     /**
      * Register the application services.

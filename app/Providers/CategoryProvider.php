@@ -32,6 +32,13 @@ class CategoryProvider extends ServiceProvider
         return $categorys;
     }
 
+    public function pages()
+    {
+        $pages = \App\Page::all();
+
+        return $pages;
+    }
+
     /**
      * Register the application services.
      *

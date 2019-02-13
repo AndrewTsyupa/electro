@@ -1,9 +1,8 @@
 @inject('categoryProvider', 'App\Providers\CategoryProvider')
 
-<!doctype html>
-<html lang="en">
-<head>
-
+    <!doctype html>
+    <html lang="en">
+    <head>
     <meta charset="utf-8">
     <!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -30,6 +29,14 @@
     <link href="/css/owl.carousel.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/responsive.css" rel="stylesheet">
+
+    <!-- CSS Summernote-->
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">--}}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
 
     <!--[if lt IE 9]>
     <script src="/js/ie8-responsive-file-warning.js"></script>
@@ -70,6 +77,14 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="/admin/list_admin">
+                                    <i class="fa fa-shopping-cart hidden-lg hidden-md" title="Shopping Cart"></i>
+                                    <span class="hidden-sm hidden-xs">
+											Admin
+										</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="/shoping">
                                     <i class="fa fa-shopping-cart hidden-lg hidden-md" title="Shopping Cart"></i>
                                     <span class="hidden-sm hidden-xs">
@@ -77,39 +92,6 @@
 										</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="/orders">
-                                    <i class="fa fa-shopping-cart hidden-lg hidden-md" title="Admin"></i>
-                                    <span class="hidden-sm hidden-xs">
-											 Admin
-										</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/admin/new">
-                                    <i class="fa fa-shopping-cart hidden-lg hidden-md" title="Admin Data"></i>
-                                    <span class="hidden-sm hidden-xs">
-											 Add Product
-										</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/admin/new-category">
-                                    <i class="fa fa-shopping-cart hidden-lg hidden-md" title="Admin Data"></i>
-                                    <span class="hidden-sm hidden-xs">
-											 Add Category
-										</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/admin/view">
-                                    <i class="fa fa-shopping-cart hidden-lg hidden-md" title="Admin Data"></i>
-                                    <span class="hidden-sm hidden-xs">
-											Edit Product
-										</span>
-                                </a>
-                            </li>
-
                         </ul>
                     </div>
                 </div>
@@ -202,11 +184,15 @@
             <!-- Nav Header Ends -->
             <!-- Navbar Cat collapse Starts -->
             <div class="collapse navbar-collapse navbar-cat-collapse">
-                <ul class="nav navbar-nav">
 
-                        @foreach($categoryProvider->category() as $category )
-                            <li><a href="{{ url('/category/'.$category->id)}}">{{$category->name}}</a></li>
-                        @endforeach
+
+                <ul class="nav navbar-nav ">
+
+                    @foreach($categoryProvider->category() as $category )
+                        <li class="bloc-category-navbar">
+                            <a class="name_category" href="{{ url('/category/'.$category->id)}}">{{$category->name}}</a>
+                        </li>
+                    @endforeach
 
                     <li class="dropdown">
                         <a href="category-list.html" class="dropdown-toggle" data-toggle="dropdown"
@@ -214,20 +200,9 @@
                             Pages
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a tabindex="-1" href="">Admin_Data</a></li>
-                            <li><a tabindex="-1" href="index.html">Home</a></li>
-                            <li><a tabindex="-1" href="about.html">About</a></li>
-                            <li><a tabindex="-1" href="category-list.html">Category List</a></li>
-                            <li><a tabindex="-1" href="category-grid.html">Category Grid</a></li>
-                            <li><a tabindex="-1" href="product.html">Product</a></li>
-                            <li><a tabindex="-1" href="product-full.html">Product Full Width</a></li>
-                            <li><a tabindex="-1" href="cart.html">Cart</a></li>
-                            <li><a tabindex="-1" href="login.html">Login</a></li>
-                            <li><a tabindex="-1" href="compare.html">Compare Products</a></li>
-                            <li><a tabindex="-1" href="typography.html">Typography</a></li>
-                            <li><a tabindex="-1" href="register.html">Register</a></li>
-                            <li><a tabindex="-1" href="contact.html">Contact</a></li>
-                            <li><a tabindex="-1" href="404.html">404</a></li>
+                            @foreach($categoryProvider->pages() as $page)
+                                <li><a tabindex="-1" href="{{ url($page->url)}}">{{$page->name}}</a></li>
+                            @endforeach
                         </ul>
                     </li>
                 </ul>
@@ -316,7 +291,7 @@
         <div class="container">
             <!-- Starts -->
             <p class="pull-left">
-                &copy; 2018 Electro Shoppe Stores. Designed By Andy <a href="http://sainathchillapuram.com">Sainath
+                &copy; 2019 Electro Shoppe Stores. Designed By Andy <a href="http://sainathchillapuram.com">Sainath
                     Chillapuram</a>
             </p>
             <!-- Ends -->
@@ -344,13 +319,14 @@
 </footer>
 <!-- Footer Section Ends -->
 <!-- JavaScript Files -->
-<script src="/js/jquery-1.11.1.min.js"></script>
-<script src="/js/jquery-migrate-1.2.1.min.js"></script>
+
 <script src="/js/bootstrap.bundle.js"></script>
 <script src="/js/bootstrap-hover-dropdown.min.js"></script>
 <script src="/js/jquery.magnific-popup.min.js"></script>
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/custom.js"></script>
 <script src="/js/tovar.js"></script>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/jquery-migrate-1.2.1.min.js"></script>
 </body>
 </html>

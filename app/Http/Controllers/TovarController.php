@@ -37,16 +37,6 @@ class TovarController extends Controller
 
     public function order_add(Request $request)
     {
-        $this->validate($request, array(
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'adress' => 'required',
-            'city' => 'required',
-            'postal_code' => 'required',
-            'countri' => 'required',
-        ));
 
         $order = new Order();
 
@@ -65,31 +55,33 @@ class TovarController extends Controller
 
 
             foreach ($korzina as $product_id => $total) {
+                if ($product_id) {
+                    $pr = DB::table('tovari')->where('id', $product_id)->first();
+                    if ($pr) {
+                        $order_data = new OrderData();
 
-                $pr = DB::table('tovari')->where('id', $product_id)->first();
-                if ($pr) {
-                    $order_data = new OrderData();
-
-                    $price = $pr->price;
-                    $total_price_z = $total * $price;
-                    $total_price_t = $total * $price;
-                    $id = $pr->id;
+                        $price = $pr->price;
+                        $total_price_z = $total * $price;
+                        $total_price_t = $total * $price;
+                        $id = $pr->id;
 
 
-                    $order_data->tovari_id = $id;
-                    $order_data->order_id = $order->id;
-                    $order_data->total_price_z = $total_price_z;
-                    $order_data->total_price_t = $total_price_t;
-                    $order_data->total = $total;
+                        $order_data->tovari_id = $id;
+                        $order_data->order_id = $order->id;
+                        $order_data->total_price_z = $total_price_z;
+                        $order_data->total_price_t = $total_price_t;
+                        $order_data->total = $total;
 
-                    $order_data->save();
+                        $order_data->save();
+
+                    }
 
                 }
 
+
+                $request->session()->remove('корзина');
+
             }
-
-            $request->session()->remove('корзина');
-
         }
 
         return redirect('/');
@@ -126,7 +118,6 @@ class TovarController extends Controller
 
     public function add(Request $request)
     {
-
         $total = $request->get('total');
         $product_id = $request->get('product_id');
 
@@ -138,6 +129,7 @@ class TovarController extends Controller
 
         return view('layouts._korzina_dropdown');
     }
+
 
     public function addForOrder(Request $request)
     {

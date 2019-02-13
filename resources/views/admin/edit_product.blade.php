@@ -1,10 +1,12 @@
-@extends('layouts.main')
+@extends('layouts.admin_main')
 
 @section('content')
     <div id="main-container" class="container">
         <h2 class="main-heading text-center">
             Редагування продукту
         </h2>
+
+
 
         <form id="form" action="/admin/edit/{{ $tovar->id }}" method="post" class="form-horizontal"
               enctype="multipart/form-data">

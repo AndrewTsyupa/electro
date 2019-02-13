@@ -41,16 +41,5 @@
                 </tbody>
             </table>
         </li>
-        <li>
-
-            <p class="text-right btn-block1">
-                <a href="/shoping">
-                    View Cart
-                </a>
-                <a href="#">
-                    Checkout
-                </a>
-            </p>
-        </li>
     </ul>
 </div>

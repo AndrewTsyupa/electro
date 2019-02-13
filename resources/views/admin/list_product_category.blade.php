@@ -53,54 +53,48 @@
 
                             <section class="products-list">
                                 <!-- Heading Starts -->
-                                <h2 class="product-head">Specials Products</h2>
+                                <h2 class="product-head">{{$category->name}}</h2>
                                 <!-- Heading Ends -->
                                 <!-- Products Row Starts -->
                                 <div class="row">
                                     <!-- Product #1 Starts -->
-                                        @foreach ($products as $product)
+                                    @foreach ($products as $product)
 
-                                            <div class="col-md-4 col-sm-6">
-                                                <div class="product-col">
-                                                    <div class="image">
-                                                        <img src="{{$product->getMainImage()}}" alt=""
-                                                             class="img-responsive"/>
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="product-col">
+                                                <div class="image">
+                                                    <img src="{{$product->getMainImage()}}" alt="" class="img-responsive"/>
+                                                </div>
+                                                <div class="caption">
+                                                    <h4>
+                                                        <a href="{{ url('/product/'.$product->id )}}">{{$product->tovar_name}}</a>
+                                                    </h4>
+                                                    <div class="description">
+                                                        1414141414
+                                                        ...
                                                     </div>
-                                                    <div class="caption">
-                                                        <h4>
-                                                            <a href="{{ url('/product/'.$product->id )}}">{{$product->tovar_name}}</a>
-                                                        </h4>
-                                                        <div class="description">
-                                                            We are so lucky living in such a wonderful time. Our almost
-                                                            unlimited
-                                                            ...
-                                                        </div>
-                                                        <div class="price">
-                                                            <span class="price-new">${{$product->price}}</span>
-                                                        </div>
-
-                                                        <form id="form" action="add" method="post">
+                                                    <div class="price">
+                                                        <span class="price-new">${{$product->price}}</span>
+                                                    </div>
+                                                    <form id="form" action="shop" method="post">
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                                                        <input id="product_id" type="hidden" name="product_id" value="{{ $product->id }}" data-id="1">
-
-                                                            {{--<input type="hidden" name="total" value="{{$product->id}}" size="1" data-id="1" class="form-control total"/>--}}
+                                                        <input id="product_id" type="hidden" name="product_id"
+                                                               value="{{ $product->id }}">
 
                                                         <div class="cart-button">
-                                                            <button type="button" class="btn btn-cart btn-add-tovar" data-id="{{ $product->id }}" data-id2="1">
+                                                            <button type="button" name="submit"
+                                                                    class="btn btn-cart btn-add">
                                                                 Add to cart
-                                                                <i class="fa fa-shopping-cart btn-add"> </i>
+                                                                <i class="fa fa-shopping-cart"></i>
                                                             </button>
                                                         </div>
-                                                        </form>
-                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                        @endforeach
-
+                                    @endforeach
                                 </div>
-
                             </section>
                         </div>
                     </div>

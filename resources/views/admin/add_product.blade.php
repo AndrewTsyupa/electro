@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin_main')
 
 @section('content')
 
@@ -6,7 +6,7 @@
         <h2 class="main-heading text-center">
             Новий продукт
         </h2>
-        <form id="form" action="/admin/add" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <form id="form" action="/admin/new" method="post" class="form-horizontal" enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">

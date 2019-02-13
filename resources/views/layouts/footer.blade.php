@@ -8,10 +8,13 @@
             <div class="col-md-2 col-sm-6">
                 <h5>Information</h5>
                 <ul>
+
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="#">Delivery Information</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms &amp; Conditions</a></li>
+                    <li><a href="#">Terms &amp; Conditions</a></li>
+
                 </ul>
             </div>
             <!-- Information Links Ends -->

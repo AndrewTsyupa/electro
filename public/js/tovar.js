@@ -47,10 +47,41 @@ $(document).on('click', '.btn-delete-product', function () {
         }
     }).done(function () {
         $(element).parents('.bloc-product').remove();
+        $(element).parents('.name_category').remove();
+
+
     });
 
-
 });
+
+$(document).on('click', '.btn-delete-category', function () {
+    var element = $(this);
+    $.ajax({
+        url:'/delete-category',
+        dataType: 'json',
+        cache: false,
+        data: {
+            category_id: $(element).data('id')
+        }
+    }).done(function () {
+        $(element).parents('.bloc-category').remove();
+    })
+});
+
+$(document).on('click', '.btn-delete-page', function () {
+   var element = $(this);
+   $.ajax({
+       url:'/delete-page',
+       dataType: 'json',
+       cache: false,
+       data: {
+           page_id: $(element).data('id')
+       }
+   }).done(function () {
+       $(element).parents('.bloc-page').remove();
+   })
+});
+
 
 $(document).on('click', '.remove-image', function () {
     var element = $(this);
@@ -90,28 +121,41 @@ $(document).on('click', '.btn-delete', function () {
     });
 });
 
+$('.category_name').on('change', function () {
+    $.ajax({
+        url: '/admin/edit-category',
+        dataType: 'json',
+        cache: false,
+        data: {
+            category_id: $(this).data('id'),
+            category_name: $(this).val()
+        },
+        success: function (data) {
+            $.each($('.bloc-category'), function (index, el) {
+
+                var category_name = ($(el).find('.category_name').val());
+                 $(el).find('.name_category').text(category_name);
+                 // $(el).find('.category_navbar').text(category_name);
+
+            });
+            $.each($('.bloc-category-navbar'), function (index, el) {
+
+                var category_name = ($(el).find('.category_name').val());
+                // $(el).find('.name_category_navbar').text(category_name);
+                $(el).find('.name_category').text(category_name);
+            });
+
+        }
+    });
+});
+
 
 $(document).on('click', '.btn-add-user-shop', function () {
     alert('Успішно опрацьоване замовлення');
 });
 
-$(document).on('click', '.btn-add-tovar', function () {
-    var element = $(this);
-    $.ajax({
-        url: '/add',
-        dataType: 'json',
-        cache: false,
-        data: {
-            product_id: $(element).data('id'),
-            total: $(element).data('id2')
-        }
-    }).done(function () {
-        korzina();
-
-
-    });
-
-
+$(document).on('click', '.btn-add', function () {
+    korzina();
 });
 
 function korzina() {
@@ -127,16 +171,31 @@ function korzina() {
         success: function (data) {
             $('#korzina-dropdown').html(data);
         }
-
     });
 }
 
-$(document).on('click', '.btn-add', function () {
-    korzina();
+
+$(document).on('click', '.btn-add-tovar', function () {
+    var element = $(this);
+    $.ajax({
+        url: '/add',
+        dataType: 'html',
+        cache: false,
+        data: {
+            product_id: $(element).data('id'),
+            total: $(element).data('id2')
+        },
+        success: function (data) {
+            $('#korzina-dropdown').html(data);
+        }
+    })
 });
 
+
+
+
+
 $('.total').on('change', function () {
-    var element = $(this);
     $.ajax({
         url: '/addForOrder',
         dataType: 'json',
@@ -148,7 +207,6 @@ $('.total').on('change', function () {
         },
         success: function (data) {
             korzina();
-            // $('#cart-total').html(data.items + ' item(s) - $' + data.total);
             $('#summ').html('Total : $' + data.total);
             $('.summ').html('$' + data.total);
             $('.product_sum').html();
@@ -161,9 +219,7 @@ $('.total').on('change', function () {
 
                 $(summ).text(price * totals);
 
-
             });
         }
-
     });
 });

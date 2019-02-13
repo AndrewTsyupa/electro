@@ -56,8 +56,8 @@
 
                         <td class="text-center">
                             <div class="input-group btn-block">
-                                <input type="text" name="total" value="{{$row['quality']}}" size="1"
-                                       data-id="{{$row['name']}}" class="form-control total"/>
+                                {{--<input type="text" name="total" value="{{$row['quality']}}" size="1"--}}
+                                       {{--data-id="{{$row['name']}}" class="form-control total"/>--}}
                             </div>
                         </td>
 
@@ -150,7 +150,7 @@
                                     <label for="inputAddress1" class="col-sm-3 control-label">Address/1 :</label>
                                     <div class="col-sm-9">
                                         <input id="adress" name="adress" type="text" class="form-control"
-                                               placeholder="Address/1">
+                                               placeholder="Address">
                                     </div>
                                 </div>
                                 <div class="form-group">

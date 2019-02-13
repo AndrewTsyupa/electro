@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin_main')
 
 @section('content')
 
@@ -9,7 +9,7 @@
         </ol>
 
         <h2 class="main-heading text-center">
-            Order
+            Замовлення
         </h2>
 
         <div class="table-responsive shopping-cart-table">

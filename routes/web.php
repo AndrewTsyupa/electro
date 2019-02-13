@@ -1,83 +1,56 @@
 <?php
 
+use App\Page;
+
+
 Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
-// Tovar
-Route::get('/', 'TovarController@getData');                                           // повертає всі товари на tovar
-Route::get('/product/{id}', 'TovarController@productView');                           // повертає дані про товар за id
-// Add Product
-Route::get('/add', 'TovarController@add');                                            // додає новий товар в БД з catalog і динамічно змінює випадайку
-Route::get('/addForOrder', 'TovarController@addForOrder');                            // додає новий товар в БД з soping
+//Get Product
 
-Route::get('/delete', 'TovarController@delete');                                      // видаляє товар
-Route::get('/shoping', 'TovarController@korzina');                                    // передає на shoping дані про куплені товари
+Route::get('/', 'TovarController@getData');
+Route::get('/product/{id}', 'TovarController@productView');
+
+// Korzina
+Route::get('/shoping', 'TovarController@korzina');
 
 // Cart or Order
-Route::post('/order', 'TovarController@order_add');                                   // створення замовлення товару
-Route::get('/orders','TovarController@ordersUser');                                   // повертає на orders дані про замовника товару
-Route::get('/orders/{id}', 'TovarController@ordersData');                             // інформація про куплені товари певного клієнта
+Route::post('/order', 'TovarController@order_add');
+Route::get('/orders', 'TovarController@ordersUser');
+Route::get('/orders/{id}', 'TovarController@ordersData');
 
-// Admin
-Route::get('/admin/new', 'AdminController@newProduct');                               //+ перехід на сторінку додавання нового продукту
-Route::post('/admin/add', 'AdminController@addProduct');                              //+ створення нового продукту(збереження в БД)
-Route::match(['get', 'post'], '/admin/edit/{id}', 'AdminController@editProduct');     // редагування продукту
-
-
-// Catalog
-Route::get('/admin/new-category', 'AdminController@newCategory');                     //+ перехід на сторінку створення ново категорії продуктів
-Route::post('/admin/add-category', 'AdminController@addCategoryProduct');             //+ створення ново категорії продуктів
-Route::get('/category/{id}', 'AdminController@categoryView');                         // сторінка категорії певного продукту з товарами
-
-//Data
-Route::get('/admin/view', 'AdminController@listProduct');                             // сторінка з списком товарів для подальшого редагування
-
-Route::get('/delete-product', 'AdminController@deleteProduct');                       // видалення продукту з БД
-Route::get('/update-image', 'AdminController@updateImage');                           // оновлення зображень при редагуванні продукту
-Route::get('/delete-values', 'AdminController@deleteValues');                         // динамічне видалення властивостей продукту
+// Product
+Route::get('/add', 'TovarController@add');
+Route::get('/addForOrder', 'TovarController@addForOrder');
+Route::get('/delete', 'TovarController@delete');
 
 
+Route::get('/admin/list_admin', 'AdminController@admin');
+
+// Product Admin Edit
+Route::match(['get', 'post'], '/admin/new', 'AdminController@newProduct');
+Route::match(['get', 'post'], '/admin/edit/{id}', 'AdminController@editProduct');
+Route::get('/admin/view', 'AdminController@listProduct');
+Route::get('/delete-product', 'AdminController@deleteProduct');
+Route::get('/delete-values', 'AdminController@deleteValues');
+Route::get('/update-image', 'AdminController@updateImage');
+
+//Category
+Route::match(['get', 'post'], '/admin/new-category', 'AdminController@newCategory');
+Route::get('/admin/list-category', 'AdminController@listCategory');
+Route::get('/admin/edit-category', 'AdminController@editCategory');
+Route::get('/category/{id}', 'AdminController@categoryView');
+Route::get('/delete-category', 'AdminController@deleteCategory');
+
+//Page
+Route::match(['get', 'post'], '/admin/new-page', 'AdminController@newPage');
+Route::get('/admin/list-pages', 'AdminController@listPages');
+Route::match(['get', 'post'], '/admin/edit-page/{id}', 'AdminController@editPages');
+Route::get('/delete-page', 'AdminController@deletePage');
+
+$pages = Page::all();
+foreach ($pages as $page) {
+    Route::get($page->url, 'AdminController@pagesView');
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

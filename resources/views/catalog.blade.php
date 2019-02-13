@@ -24,12 +24,10 @@
                 <!-- Product Info Starts -->
                 <div class="row product-info">
                     <!-- Left Starts -->
-                    <div class="col-sm-4 images-block">
+                    <div class="col-sm-5 images-block">
                         <p>
-                            <img src="{{$tovar->getMainImage() }}" alt="Image"
-                                 class="img-responsive thumbnail">
+                            <img src="{{$tovar->getMainImage() }}" alt="Image" class="img-responsive thumbnail">
                         </p>
-
                     </div>
                     <!-- Left Ends -->
                     <!-- Right Starts -->
@@ -79,6 +77,7 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </form>
                         </div>
                         <hr/>

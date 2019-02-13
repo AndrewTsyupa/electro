@@ -1,17 +1,17 @@
 @extends('layouts.admin_main')
 
 @section('content')
-
     <div id="main-container" class="container">
         <ol class="breadcrumb">
             <li><a href="index.html">Home</a></li>
-            <li class="active">Edit Product</li>
+            <li class="active">Редагувати Сторінку</li>
         </ol>
 
         <h2 class="main-heading text-center">
-           Редагування Продукту
+            Редагувати Сторінку
         </h2>
-        <a class="btn btn-black block text-center" href="/admin/new">Cтворити Продукт</a>
+        <a class="btn btn-black block" href="/admin/new-page">Створити Сторінку</a>
+
 
         <div class="table-responsive shopping-cart-table">
             <table class="table table-bordered">
@@ -21,43 +21,44 @@
                         Id
                     </td>
                     <td class="text-center">
-                        Назва товару
+                        URL
                     </td>
                     <td class="text-center">
-                        Ціна
+                        Title
                     </td>
                     <td class="text-center">
-                        Фото
+                        Content
                     </td>
                     <td class="text-center">
-
+                        Редагування
                     </td>
-
+                    <td class="text-center">
+                        Видалення
+                    </td>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($products as $product)
-                    <tr class="bloc-product">
-                        <td class="text-center " >
-                            <p class="productid" data-id="{{$product->id}}">{{$product->id}}</p>
+                @foreach($pages as $page)
+                    <tr class="bloc-page">
+                        <td class="text-center">
+                            {{$page->id}}
                         </td>
                         <td class="text-center">
-                            {{$product->tovar_name}} {{$product->opis}}
+                            {{$page->url}}
                         </td>
                         <td class="text-center">
-                            {{$product->price}}
+                            {{$page->name}}
+                        </td>
+                        <td class="text-center content">
+                            {{$content = str_limit($page->content, 300)}}
                         </td>
                         <td class="text-center">
-                            <img src="{{$product->getMainImage()}}" alt="" width="300" height="300"
-                                 class="img-responsive"/>
+                            <a href="{{ url('/admin/edit-page/'.$page->id) }}" class="btn btn-black"> Редагувати продукт</a>
                         </td>
                         <td class="text-center">
-                            <a href="{{ url('/admin/edit/'.$product->id) }}" class="btn btn-black">
-                                Редагувати продукт
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-danger btn-delete-product" data-id="{{$product->id}}">Видалити продукт</button>
+                            <button type="button" class="btn btn-danger btn-delete-page" data-id="{{$page->id}}">
+                                Видалити продукт
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -67,5 +68,4 @@
         </div>
 
     </div>
-
 @endsection
