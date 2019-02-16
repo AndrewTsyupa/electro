@@ -11,8 +11,6 @@
             Редагувати Сторінку
         </h2>
         <a class="btn btn-black block" href="/admin/new-page">Створити Сторінку</a>
-
-
         <div class="table-responsive shopping-cart-table">
             <table class="table table-bordered">
                 <thead>
@@ -50,7 +48,7 @@
                             {{$page->name}}
                         </td>
                         <td class="text-center content">
-                            {{$content = str_limit($page->content, 300)}}
+                            <a href="{{$page->url}}" class="btn btn-black">{{$page->name}}</a>
                         </td>
                         <td class="text-center">
                             <a href="{{ url('/admin/edit-page/'.$page->id) }}" class="btn btn-black"> Редагувати продукт</a>

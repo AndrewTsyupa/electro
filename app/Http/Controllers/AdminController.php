@@ -159,22 +159,23 @@ class AdminController extends Controller
     public function listCategory(Request $request)
     {
         $categorys = Category::all();
-        return view('/admin/edit_category', ['categorys' => $categorys]);
+        return view('/admin/list_category', ['categorys' => $categorys]);
     }
 
 
-    public function editCategory(Request $request)
+    public function editCategory(Request $request, $id)
     {
-
-        $id = $request->get('category_id');
-        $category_name = $request->get('category_name');
         $category = Category::findOrFail($id);
 
-        $category->name = $category_name;
-        $category->save();
+        if ($request->isMethod('post')) {
+            $category->name = Input::get('name');
+            $category->save();
 
+            return redirect('/admin/list-category');
+        }
 
-        return json_encode(['category_name' => $category_name]);
+        return view('/admin/edit_category', ['category' => $category]);
+
     }
 
 
@@ -280,9 +281,24 @@ class AdminController extends Controller
     public function deleteProduct(Request $request)
     {
         $id = $request->get('productid');
+
+        $path = public_path('images\tovar');
+
+//        $path = storage_path('public\images\tovar\\' . $id . '\\');
+//
+//        $a = asset('storage/public/images/tovar/' . $id . '/');
+
+//      $b = Storage::disk('local')->put('aaa.txt', 'Contents');
+//        $b = '\images\tovar\14\\';
+
+        $directories = Storage::directories($path . '\14');
+        Storage::deleteDirectory($path . '\14');
+
+
         Tovar::where('id', $id)->delete();
         Values::where('tovari_id', $id)->delete();
 
+        return '';
     }
 
     public function deleteCategory(Request $request)

@@ -22,17 +22,6 @@ class Page extends ServiceProvider
         $this->request = $request;
     }
 
-    public function page()
-    {
-        $page = Page::all();
-
-        $s = 550;
-        return Route::get('/', 'TovarController@getData');
-
-    }
-
-
-
     /**
      * Register the application services.
      *

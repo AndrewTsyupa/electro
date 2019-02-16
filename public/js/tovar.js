@@ -121,33 +121,7 @@ $(document).on('click', '.btn-delete', function () {
     });
 });
 
-$('.category_name').on('change', function () {
-    $.ajax({
-        url: '/admin/edit-category',
-        dataType: 'json',
-        cache: false,
-        data: {
-            category_id: $(this).data('id'),
-            category_name: $(this).val()
-        },
-        success: function (data) {
-            $.each($('.bloc-category'), function (index, el) {
 
-                var category_name = ($(el).find('.category_name').val());
-                 $(el).find('.name_category').text(category_name);
-                 // $(el).find('.category_navbar').text(category_name);
-
-            });
-            $.each($('.bloc-category-navbar'), function (index, el) {
-
-                var category_name = ($(el).find('.category_name').val());
-                // $(el).find('.name_category_navbar').text(category_name);
-                $(el).find('.name_category').text(category_name);
-            });
-
-        }
-    });
-});
 
 
 $(document).on('click', '.btn-add-user-shop', function () {
@@ -192,9 +166,6 @@ $(document).on('click', '.btn-add-tovar', function () {
 });
 
 
-
-
-
 $('.total').on('change', function () {
     $.ajax({
         url: '/addForOrder',
@@ -223,3 +194,4 @@ $('.total').on('change', function () {
         }
     });
 });
+

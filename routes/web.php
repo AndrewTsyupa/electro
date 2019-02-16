@@ -37,8 +37,8 @@ Route::get('/update-image', 'AdminController@updateImage');
 
 //Category
 Route::match(['get', 'post'], '/admin/new-category', 'AdminController@newCategory');
+Route::match(['get', 'post'], '/admin/edit-category/{id}', 'AdminController@editCategory');
 Route::get('/admin/list-category', 'AdminController@listCategory');
-Route::get('/admin/edit-category', 'AdminController@editCategory');
 Route::get('/category/{id}', 'AdminController@categoryView');
 Route::get('/delete-category', 'AdminController@deleteCategory');
 
